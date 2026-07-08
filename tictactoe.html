@@ -99,18 +99,18 @@
     <span><span class="score-label">O</span><span id="score-o">0</span></span>
   </div>
 
-  <div id="status">X's turn</div>
+  <div id="status" aria-live="polite">X's turn</div>
 
-  <div id="board">
-    <div class="cell" data-index="0"></div>
-    <div class="cell" data-index="1"></div>
-    <div class="cell" data-index="2"></div>
-    <div class="cell" data-index="3"></div>
-    <div class="cell" data-index="4"></div>
-    <div class="cell" data-index="5"></div>
-    <div class="cell" data-index="6"></div>
-    <div class="cell" data-index="7"></div>
-    <div class="cell" data-index="8"></div>
+  <div id="board" role="grid" aria-label="Tic Tac Toe board">
+    <div class="cell" role="gridcell" tabindex="0" data-index="0" aria-label="Top left cell"></div>
+    <div class="cell" role="gridcell" tabindex="0" data-index="1" aria-label="Top center cell"></div>
+    <div class="cell" role="gridcell" tabindex="0" data-index="2" aria-label="Top right cell"></div>
+    <div class="cell" role="gridcell" tabindex="0" data-index="3" aria-label="Middle left cell"></div>
+    <div class="cell" role="gridcell" tabindex="0" data-index="4" aria-label="Middle center cell"></div>
+    <div class="cell" role="gridcell" tabindex="0" data-index="5" aria-label="Middle right cell"></div>
+    <div class="cell" role="gridcell" tabindex="0" data-index="6" aria-label="Bottom left cell"></div>
+    <div class="cell" role="gridcell" tabindex="0" data-index="7" aria-label="Bottom center cell"></div>
+    <div class="cell" role="gridcell" tabindex="0" data-index="8" aria-label="Bottom right cell"></div>
   </div>
 
   <button id="reset">New Game</button>
@@ -186,6 +186,12 @@
     }
 
     cells.forEach(cell => cell.addEventListener('click', handleClick));
+    cells.forEach(cell => cell.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleClick(e);
+      }
+    }));
     document.getElementById('reset').addEventListener('click', startGame);
 
     startGame();
